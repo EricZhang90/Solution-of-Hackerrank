@@ -1,5 +1,5 @@
 # No-Prefix-Set
-Trie Implementation. Answer of challenge: https://www.hackerrank.com/challenges/no-prefix-set 
+Trie Implementation. Solution of challenge: https://www.hackerrank.com/challenges/no-prefix-set 
 <br/><br/>
 
 
