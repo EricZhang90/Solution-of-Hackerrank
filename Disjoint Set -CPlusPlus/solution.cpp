@@ -19,7 +19,7 @@ public:
             makeNode(i);
         }
     }
-    
+
     ~DisjointSet() {
         auto it = nodes.begin();
         auto end = nodes.end();
@@ -27,31 +27,31 @@ public:
             delete it->second;
         }
     }
-    
+
     void query(int data) {
         if (nodes[data] != nullptr) {
             cout << findRoot(nodes[data])->total << endl;
         }
     }
-    
+
     void merge(int data1, int data2) {
         if (data1 > n || data2 > n) {
             return;
         }
-        
+
         if (data1 == data2) {
             return;
         }
-        
+
         Node* r1 = findRoot(nodes[data1]);
         Node* r2 = findRoot(nodes[data2]);
-        
+
         if (r1 == r2) {
             return;
         }
-        
+
         int result = r1->compareRange(r2);
-        
+
         switch (result) {
             case 1:
                 // range1 > range2
@@ -71,21 +71,22 @@ public:
                 break;
         }
     }
-    
-    
+
+
 private:
     struct Node {
         long data;
         int range;
         int total;
         Node* parent;
-        
+
         Node(long d) {
             data = d;
             total = 1;
+            range = 0;
             parent = nullptr;
         }
-        
+
         int compareRange(const Node* rhs) const {
             if (range > rhs->range) {
                 return 1;
@@ -97,39 +98,39 @@ private:
                 return 0;
             }
         }
-        
+
         bool operator==(const Node* rhs) const  {
             return range == rhs->range && data == rhs->data;
         }
     };
-  
+
     int n;
     map<long, Node*> nodes;
-    
-    
+
+
 private:
     Node* makeNode(long data) {
         Node* node = new Node(data);
         nodes[data] = node;
-        
+
         return node;
     }
-    
+
     Node* findRoot(Node* node) {
         Node* current = node;
-        
+
         while(current->parent != nullptr) {
             current = current->parent;
         }
-        
+
         if (current != node) {
             node->parent = current;
         }
-        
+
         return current;
     }
-    
-    
+
+
 };
 
 
@@ -137,9 +138,9 @@ private:
 int main() {
     int n, q;
     cin >> n >> q;
-    
+
     DisjointSet set = DisjointSet(n);
-    
+
     char operation = 0;
     for(int i = 0; i < q; i++) {
         cin >> operation;
@@ -156,7 +157,7 @@ int main() {
             set.merge(data1, data2);
         }
     }
-    
+
     return 0;
 }
 
